@@ -32,20 +32,27 @@ namespace SpreadsheetApp
                 {
                     // Check if Digit or . or -ve sign in special cases
                     if (i == 0 && rawFormula[i] == '=') ;
-                    else if (Char.IsDigit(rawFormula[i]) || rawFormula[i] == '.' || (prevOperator&& rawFormula[i] == '-'))
+                    else if (Char.IsDigit(rawFormula[i]) || rawFormula[i] == '.' || (prevOperator && rawFormula[i] == '-'))
                     {
-                        string num = "";                         
+                        string num = "";
+                        if (rawFormula[i] == '-')
+                        {
+                            num += "-";
+                            ++i;
+                        }
                         while (i < rawFormula.Length && (Char.IsDigit(rawFormula[i]) || rawFormula[i] == '.'))
                         {
                             num += rawFormula[i];
                             ++i;
                         }
                         --i;
+
                         ExprList.Add(new LiteralExpr(double.Parse(num)));
                     }
-                    else if (!prevOperator && InfixOperatorExpr.precedenceMap.ContainsKey("" + rawFormula[i]) == true)
+                    else if (InfixOperatorExpr.precedenceMap.ContainsKey("" + rawFormula[i]) == true)
                     {
                         ExprList.Add(new InfixOperatorExpr("" + rawFormula[i]));
+                        prevOperator = true;
                     }
                     else if (char.IsUpper(rawFormula[i]))
                     {

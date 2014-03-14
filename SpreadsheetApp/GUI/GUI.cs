@@ -29,7 +29,7 @@ namespace SpreadsheetApp
             MatrixBind = new Mommo.Data.ArrayDataView(Sheet.outputMatrix);
             dataGridView1.DataSource = MatrixBind;
             UpdateGrid();
-            MessageBox.Show("Edit in the Spreadsheet by clicking on a Cell\n-Formula Example :    \"=B2+(C3/D4)+3\"\nCell Referring is Absolute");              
+            MessageBox.Show("Edit in the Spreadsheet by clicking on a Cell\n-Formula Example :    \"=B2+(C3/D4)+3\"\nCell Referring is Absolute", "Hint!");              
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -70,7 +70,7 @@ namespace SpreadsheetApp
             MatrixBind = new Mommo.Data.ArrayDataView(Sheet.outputMatrix);
             dataGridView1.DataSource = MatrixBind;
             UpdateGrid();
-            MessageBox.Show("Sheet Cleared Successfully!"); 
+            MessageBox.Show("Sheet Cleared Successfully!" , "Cleared!"); 
         }
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)

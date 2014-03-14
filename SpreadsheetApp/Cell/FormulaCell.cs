@@ -102,7 +102,9 @@ namespace SpreadsheetApp
                         {
                             Expression opr = expr;
 
-                            if (oprStack.Count == 0 || InfixOperatorExpr.precede(opr.operatorSign, oprStack.Peek().operatorSign))
+                            if (opr.operatorSign == "(")
+                                oprStack.Push(opr);
+                            else if (oprStack.Count == 0 || InfixOperatorExpr.precede(opr.operatorSign, oprStack.Peek().operatorSign))
                             {
                                 oprStack.Push(opr);
                             }
