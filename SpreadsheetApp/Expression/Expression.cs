@@ -13,13 +13,15 @@ namespace SpreadsheetApp
         public enum ExprType
         {
             Address,
+            Matrix,
             Literal,
             InfixOperator
         };
 
         public ExprType exprType;
         public double value;
-        public CellAdresss addr;
+        public CellAddress addr;
+        public CellMatrixAddress matAddr;
         public string operatorSign;
         public Expression()
         {

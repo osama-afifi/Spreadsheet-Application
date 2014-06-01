@@ -8,7 +8,6 @@ namespace SpreadsheetApp
 {
     abstract class LiteralCell : Cell
     {
-
         public LiteralCell()
         {
             visited = updated = false;

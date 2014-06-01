@@ -8,15 +8,15 @@ namespace SpreadsheetApp
 {
     class CellAddressExpr : Expression
     {
-        //public CellAdresss addr;
-        public CellAddressExpr(CellAdresss addr)
+        //public CellAddress addr;
+        public CellAddressExpr(CellAddress addr)
         {
             this.addr = addr;
             this.exprType = ExprType.Address;
         }
         public CellAddressExpr(string alphaAddr)
         {
-            addr = new CellAdresss(alphaAddr);
+            addr = new CellAddress(alphaAddr);
         }
     }
 }

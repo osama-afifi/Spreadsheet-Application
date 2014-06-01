@@ -12,7 +12,7 @@ namespace SpreadsheetApp
         #region attributes
         public static Cell[,] dataMatrix;
         public static string[,] outputMatrix;
-        public static List<CellAdresss> formulaList;
+        public static List<CellAddress> formulaList;
         //static Sheet instance;
 
         #endregion
@@ -24,7 +24,7 @@ namespace SpreadsheetApp
             // Each Sheet created with following sizes initially
             dataMatrix = new Cell[initalrows, intialCols];
             outputMatrix = new string[initalrows, intialCols];
-            formulaList = new List<CellAdresss>();
+            formulaList = new List<CellAddress>();
             InfixOperatorExpr.initializePrecedence();
             //   Expand();
         }
@@ -70,7 +70,7 @@ namespace SpreadsheetApp
         {
             return dataMatrix[row, col] = c;
         }
-        public static Cell insertCell(string rawData, CellAdresss addr)
+        public static Cell insertCell(string rawData, CellAddress addr)
         {
             Parser p = new Parser();
             List<Expression> exprList = p.ParseFormula(rawData);
@@ -106,7 +106,7 @@ namespace SpreadsheetApp
 
         public static void RefreshDependancies()
         {
-            HashSet<CellAdresss> visitedCells = new HashSet<CellAdresss>();
+            HashSet<CellAddress> visitedCells = new HashSet<CellAddress>();
             for (int i = 0; i < formulaList.Count; i++)
             {
                 Cell c = Sheet.GetCell(formulaList[i].row, formulaList[i].col);
@@ -122,7 +122,7 @@ namespace SpreadsheetApp
             }
 
         }
-        static void RefreshDependanciesHelper(CellAdresss curFormulaAddr, ref HashSet<CellAdresss> visitedCells)
+        static void RefreshDependanciesHelper(CellAddress curFormulaAddr, ref HashSet<CellAddress> visitedCells)
         {
             if (visitedCells.Contains(curFormulaAddr))
                 return;

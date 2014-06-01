@@ -6,22 +6,15 @@ using System.Threading.Tasks;
 
 namespace SpreadsheetApp
 {
-    class CellAdresss
+    class CellMatrixAddress
     {
-        public int row;
-        public int col;
-        public CellAdresss(int row, int col)
+        CellAddress upperLeft;
+        CellAddress lowerRight;
+        public CellMatrixAddress(CellAddress upperLeft , CellAddress lowerRight)
         {
-            this.row = row;
-            this.col = col;
+            this.upperLeft = upperLeft;
+            this.lowerRight = lowerRight;
         }
-        public CellAdresss(string alphaAddr)
-        {
-            CellAdresss addr = GetCellIndex(alphaAddr);
-            this.row = addr.row;
-            this.col = addr.col;
-        }
-
         public static string GetColumnAlphabet(int columnNumber)
         {
             ++columnNumber;
@@ -42,11 +35,5 @@ namespace SpreadsheetApp
                 returnedCol = returnedCol * 26 + (int)(row[i] - 'A');
             return returnedCol;
         }
-        public static CellAdresss GetCellIndex(string alphaAddr)
-        {
-
-            return new CellAdresss(0,0);
-        }
-
     }
 }

@@ -91,7 +91,7 @@ namespace SpreadsheetApp
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            CellAdresss addr = new CellAdresss(e.RowIndex,e.ColumnIndex);
+            CellAddress addr = new CellAddress(e.RowIndex,e.ColumnIndex);
             string cellText = dataGridView1[addr.col, addr.row].Value.ToString();
             FormulaBar.Text = cellText;
             Cell c = Sheet.insertCell(cellText, addr);

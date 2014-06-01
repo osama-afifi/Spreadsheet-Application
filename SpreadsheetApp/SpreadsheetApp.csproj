@@ -44,11 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cell\CellMatrixAddress.cs" />
     <Compile Include="Cell\ErrorCell.cs" />
+    <Compile Include="Expression\CellMatrixExpression.cs" />
     <Compile Include="Expression\InfixOperatorExpr.cs" />
     <Compile Include="Expression\CellAddressExpr.cs" />
     <Compile Include="Cell\Cell.cs" />
-    <Compile Include="Cell\CellAdresss.cs" />
+    <Compile Include="Cell\CellAddress.cs" />
     <Compile Include="Cell\FormulaCell.cs" />
     <Compile Include="Cell\TextCell.cs" />
     <Compile Include="Expression\Expression.cs" />

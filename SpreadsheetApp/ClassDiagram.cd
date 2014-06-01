@@ -7,11 +7,11 @@
       <FileName>Cell\Cell.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SpreadsheetApp.CellAdresss" Collapsed="true">
+  <Class Name="SpreadsheetApp.CellAddress" Collapsed="true">
     <Position X="0.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAEAAAAAAAAAAAAAQICAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Cell\CellAdresss.cs</FileName>
+      <FileName>Cell\CellAddress.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpreadsheetApp.ErrorCell" Collapsed="true">

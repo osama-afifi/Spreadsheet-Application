@@ -14,7 +14,6 @@ namespace SpreadsheetApp
             ValidFormula = true;
         }
 
-
         public List<Expression> ParseFormula(string rawFormula)
         {
             List<Expression> ExprList = new List<Expression>();
@@ -71,11 +70,11 @@ namespace SpreadsheetApp
                             row += rawFormula[i];
                             ++i;
                         }
-                        --i;
+                     
                         int rowIndex = int.Parse(row) - 1;
                         if (rowIndex < 0)
                             ValidFormula = false;
-                        CellAdresss addr = new CellAdresss(rowIndex, CellAdresss.GetAlphabetNum(column));
+                        CellAddress addr = new CellAddress(rowIndex, CellAddress.GetAlphabetNum(column));
                         if (!Sheet.inRange(addr.row, addr.col))
                         {
                             ValidFormula = false;
@@ -83,7 +82,36 @@ namespace SpreadsheetApp
                             break;
                         }
                         prevOperator = false;
-                        ExprList.Add(new CellAddressExpr(addr));
+                        if (rawFormula[i] != ':')
+                            ExprList.Add(new CellAddressExpr(addr));
+                        else 
+                        {
+                            ++i;
+                            string lowerRightCol = "";
+                            while (i < rawFormula.Length && char.IsUpper(rawFormula[i]))
+                            {
+                                lowerRightCol += rawFormula[i];
+                                ++i;
+                            }
+                            string secondRow = "";
+                            if (i < rawFormula.Length && rawFormula[i] == '$')
+                                ++i;
+                            while (i < rawFormula.Length && char.IsDigit(rawFormula[i]))
+                            {
+                                secondRow += rawFormula[i];
+                                ++i;
+                            }
+                            int secondRowIndex = int.Parse(row) - 1;
+                            CellAddress lowerRightAddr = new CellAddress(secondRowIndex, CellAddress.GetAlphabetNum(lowerRightCol));
+                            if (!Sheet.inRange(lowerRightAddr.row, lowerRightAddr.col))
+                            {
+                                ValidFormula = false;
+                                ExprList.Clear();
+                                break;
+                            }
+                            ExprList.Add(new CellMatrixExpression(  new CellMatrixAddress(addr, lowerRightAddr)) );
+                        }
+                        --i;
                     }
                     else if (rawFormula[i] == '$')
                     {

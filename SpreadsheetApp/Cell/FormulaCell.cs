@@ -31,14 +31,13 @@ namespace SpreadsheetApp
                 if (e is CellAddressExpr)
                 {
                     int rowIndex = e.addr.row + 1;
-                    string colIndex = CellAdresss.GetColumnAlphabet(e.addr.col);
+                    string colIndex = CellAddress.GetColumnAlphabet(e.addr.col);
                     expr += colIndex + rowIndex.ToString();
                 }
                 else if (e is LiteralExpr)
                     expr += e.value.ToString();
                 else if (e is InfixOperatorExpr)
-                    expr += e.operatorSign;
-            
+                    expr += e.operatorSign;   
             }
             return expr;
         }
@@ -48,7 +47,6 @@ namespace SpreadsheetApp
             Stack<double> valueStack = new Stack<double>();
             try
             {
-
                 foreach (Expression expr in exprList)
                 {
                     if (expr is LiteralExpr)
@@ -56,10 +54,13 @@ namespace SpreadsheetApp
                         Expression e = expr;
                         valueStack.Push(e.value);
                     }
-
+                    else if (expr is CellAddressExpr)
+                    { 
+                    
+                    
+                    }
                     else if (expr is CellAddressExpr)
                     {
-
                         try
                         {
                             if (Sheet.GetCell(expr.addr.row, expr.addr.col) is NumberCell)
@@ -77,14 +78,12 @@ namespace SpreadsheetApp
                             {
                                 Sheet.dataMatrix[expr.addr.row, expr.addr.col] = new ErrorCell(ErrorCell.ErrorType.InvalidType);
                                 Sheet.outputMatrix[expr.addr.row, expr.addr.col] = Sheet.GetCell(expr.addr.row, expr.addr.col).Show();
-
                                 // throw new Exception();
                             }
                             else
                             {
                                 valueStack.Push(0);
                             }
-
                         }
                         catch (Exception exc)
                         {
@@ -101,7 +100,6 @@ namespace SpreadsheetApp
                         try
                         {
                             Expression opr = expr;
-
                             if (opr.operatorSign == "(")
                                 oprStack.Push(opr);
                             else if (oprStack.Count == 0 || InfixOperatorExpr.precede(opr.operatorSign, oprStack.Peek().operatorSign))
@@ -136,13 +134,10 @@ namespace SpreadsheetApp
                         }
                         catch
                         {
-                            int x;
+
                         }
                     }
-
-
                 }
-
                 while (oprStack.Count > 0)
                 {
                     string opr = oprStack.Pop().operatorSign;
@@ -157,7 +152,6 @@ namespace SpreadsheetApp
             catch
             {
 
-                int x;
             }
 
             cacheVal = (valueStack.Count == 1) ? valueStack.Pop() : 0;
